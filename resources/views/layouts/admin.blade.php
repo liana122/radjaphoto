@@ -39,7 +39,6 @@
         @include('layouts.include._navbar')
         <!-- /.navbar -->
 
-        @if (auth()->user()->role == 'admin')
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -67,7 +66,6 @@
             </div>
             <!-- /.sidebar -->
         </aside>
-        @endif
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

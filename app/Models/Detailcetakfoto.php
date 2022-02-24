@@ -11,4 +11,6 @@ class Detailcetakfoto extends Model
 
     protected $table='detailcetakfoto';
     protected $fillable=['produk_id','id_cetakfoto','author','namapemesan','jumlahpesanan','foto','no_telp','status','buktitransfer','id_user'];
+
+
 }

@@ -17,13 +17,14 @@ class PemesananController extends Controller
 {
     public function index()
     {
+        
         if(auth()->user()->role=='admin'){
             $data=Pemesanan::orderBy('id','desc')->get();
-
         }else{
-
+        
             $data=Pemesanan::where('id_user',auth()->user()->id)->orderBy('id','desc')->get();
         }
+        // dd($data);
         return view('pemesanan.index',compact('data'));
     }
     public function pesan($id)
@@ -45,6 +46,8 @@ class PemesananController extends Controller
         $data->tglfoto=$req->tglfoto;
         $data->no_telp=$req->no_telp;
         $data->status='Menunggu Konfirmasi';
+
+        
         
         if ($req->has('buktipembayaran')) {
 
@@ -61,6 +64,10 @@ class PemesananController extends Controller
     {
         $produkIds = $req->get('produk_ids');
         $randomStr = Str::random(10);
+
+        $req->validate([
+            'buktipembayaran' => 'mimes:png,jpg,jpeg|max:2048'
+        ]);
 
         if ($req->has('buktipembayaran')) {
             $req->file('buktipembayaran')->move(public_path() . '/buktipembayaran/'.auth()->user()->name , $randomStr.'.'.$req->file

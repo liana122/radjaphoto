@@ -64,7 +64,7 @@
                                     <td>
                                         <div class="btn-group btn-group-sm">
                                             @if (auth()->user()->role=='user')
-                                            <a data-toggle="modal" data-idproduk="{{$row->id}}" data-ket="{{$row->keterangan}}" data-target="#exampleModal" class="btn btn-info cartButton"><i class="fas fa-shopping-cart " ></i></a>
+                                            <a data-toggle="modal" data-idproduk="{{$row->id}}" data-ket="{{$row->jenispaket}}" data-target="#exampleModal" class="btn btn-info cartButton"><i class="fas fa-shopping-cart " ></i></a>
                                             
                                             <!-- <label>
                                                 <a href="/{{ auth()->user()->role }}/pemesanan/{{ $row->id }}"></a>

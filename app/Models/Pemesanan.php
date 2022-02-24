@@ -16,4 +16,9 @@ class Pemesanan extends Model
     {
         return $this->hasOne(Paketstudio::class,'id_paketstudio');
     }
+
+    public function photo()
+    {
+        return $this->belongsTo(Paketfoto::class, 'photo_id');
+    }
 }

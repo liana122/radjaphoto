@@ -13,6 +13,7 @@ class PaketfotoController extends Controller
     public function index()
     {
         $data=Photo::orderBy('id','desc')->where('type', 'paketfoto')->get();
+        // dd($data);
         return view('paketfoto.index',compact('data'));
     }
     public function tambah()
@@ -21,6 +22,9 @@ class PaketfotoController extends Controller
     }
     public function simpan(Request $req)
     {
+        $req->validate([
+            'gambar' => 'mimes:png,jpg,jpeg'
+        ]);
         $data=new Photo;
         $data->jenispaket=$req->jenispaket;
         $data->keterangan=$req->keterangan;
@@ -62,14 +66,6 @@ class PaketfotoController extends Controller
         return redirect('/admin/paketfoto')->with('status','Data berhasil diedit!');
         
     }
-    // public function hapus($id)
-    // {
-    //     $data=Paketfoto::find($id);
-    //    // $laporan=Laporan::where('id_paket',$id)->delete();
-    //     $pemesanan=Pemesanan::where('id_paket',$id)->delete();
-    //     $data->delete();
-    //     return redirect()->back();
-    // }
 
     public function hapus($id)
     {

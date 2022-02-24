@@ -43,6 +43,7 @@
                                     <th style="width: 10px">No</th>
                                     <th>Gambar</th>
                                     <th>Produk</th>
+                                    <th>Jenis Paket</th>
                                     <th>Jumlah Pesanan</th>
                                     <th>Harga</th>
                                     <th>Total Harga</th>
@@ -55,6 +56,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td><img class="img-thumbnail" src="{{ asset('/gambar/'.$row->author.'/'.$row->gambar)}}" width="150"></td>
                                     <td>{{ $row->keterangan }}</td>
+                                    <td>{{$row->jenispaket}}</td>
                                     <td>{{ $row->jumlahPesanan }}</td>
                                     <td>{{ $row->hargaSatuan }}</td>
                                     <td>{{ $row->totalHarga }}</td>

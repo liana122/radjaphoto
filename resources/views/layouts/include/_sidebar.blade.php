@@ -50,6 +50,32 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="/{{ auth()->user()->role }}/laporan" class="nav-link {{Request::is('admin/laporan')?'active':''}}">
+                    <i class="nav-icon fas fa-credit-card"></i>
+                    <p>
+                      Laporan
+                    </p>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/{{ auth()->user()->role }}/laporan" class="nav-link {{Request::is('admin/laporan')?'active':''}}">
+                            <i class="nav-icon fas fa-credit-card"></i>
+                            <p>
+                            Laporan Per Pelanggan
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('laporan.filter-periode') }}" class="nav-link {{Request::is('admin/laporan')?'active':''}}">
+                            <i class="nav-icon fas fa-credit-card"></i>
+                            <p>
+                            Laporan Per Periode
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             </ul>
             </li>
           

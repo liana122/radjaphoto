@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -62,21 +63,38 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role'=>'user',
-            'password' => bcrypt($request->password)
-        ]);
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {    
-            if (auth()->user()->role == 'admin') {
-                // dd(auth()->user()->role);
-                return redirect(route('dashboard.admin'));
-            } elseif (auth()->user()->role == 'user') {
-                return redirect(route('dashboard.user'));
+        DB::beginTransaction();
+        try {
+            //code...
+            $folder = createMainDirectory($request->name);
+            if($folder){
+                $user = [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'role'=>'user',
+                    'password' => bcrypt($request->password)
+                ];
+
+                $result = User::create($user);
+
             }
-        } else {
-            return redirect('login')->with('error','');
+            DB::commit();
+
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {    
+                if (auth()->user()->role == 'admin') {
+                    // dd(auth()->user()->role);
+                    return redirect(route('dashboard.admin'));
+                } elseif (auth()->user()->role == 'user') {
+                    return redirect(route('dashboard.user'));
+                }
+            } else {
+                return redirect('login')->with('error','');
+            }
+
+            return $result;
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
         }
 
     }

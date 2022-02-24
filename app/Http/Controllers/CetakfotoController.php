@@ -21,6 +21,7 @@ class CetakfotoController extends Controller
     }
     public function simpan(Request $req)
     {
+    
         $data= new Photo;
         // $data->nama=$req->nama;
         $data->harga = $req->harga;
@@ -47,6 +48,7 @@ class CetakfotoController extends Controller
     }
     public function perbarui(Request $req,$id)
     {
+
         // dd($req->all());
         $data=Photo::find($id);
         // $data->nama=$req->nama;

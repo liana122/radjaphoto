@@ -40,8 +40,9 @@
                             <div class="form-group">
                                 <label>Jenis Paket</label>
                                 <select class="form-control" name="jenispaket">
-                                    <option value="Paket Outdoor">Paket Outdoor</option>
-                                    <option value="Paket Studio">Paket Studio</option>                           
+                                    <option value="Paket Foto Wedding">Paket Foto Wedding</option>
+                                    <option value="Paket Foto Keluarga">Paket Foto Keluarga</option>
+                                    <option value="Paket Foto Wisuda">Paket Foto Wisuda</option>                            
                                 </select>
                             </div>
                             <div class="form-group">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -64,10 +65,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        DB::beginTransaction();
+        try {
+            //code...
+            $folder = createMainDirectory($data['name']);
+            if($folder){
+                $user = [
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                ];
+
+                $result = User::create($user);
+            }
+            DB::commit();
+
+            return $result;
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+        }
+        /*$folder = createMainDirectory($data['name']);
+        dd($folder);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
+        ]);*/
     }
 }

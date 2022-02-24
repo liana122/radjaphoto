@@ -35,6 +35,7 @@
                                 <tr>
                                     <th style="width: 10px">No</th>
                                     <th>Produk</th>
+                                    <th>Jenis Paket</th>
                                     <th>Jumlah Pesanan</th>
                                     <th>Harga</th>
                                     <th>Total Harga</th>
@@ -47,6 +48,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <?php $paketfoto = $row->jenispaket; ?>
                                     <td>{{ $row->keterangan }}</td>
+                                    <td>{{$row->jenispaket}}</td>
                                     <td>{{ $row->jumlahPesanan }}</td>
                                     <td>{{ $row->hargaSatuan }}</td>
                                     <td>{{ $row->totalHarga }}
@@ -71,6 +73,9 @@
                         <input type="hidden" value="{{$cetakfoto}}" name="foto">
                         <input type="hidden" name="produk_id" value="{{ $cart->implode('produk_id', '-') }}">
                         <input type="hidden" name="type_produk" value="{{ $cart->implode('type', '-') }}">
+                        @foreach ( $cart as $row )
+                        <input type="hidden" name="jenispaket" value="{{$row->jenispaket}}">
+                        @endforeach
                         <div class="card-body">
                             <ul>
                                 <li>No. Rek BRI : 008876372456754672</li>

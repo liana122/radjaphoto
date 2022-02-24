@@ -67,10 +67,22 @@ Route::prefix('admin')->middleware('auth', 'role:admin')->group(function () {
     Route::get('/pemesanan/{id}/delete',[PemesananController::class,'destroy']);
     // Route::delete('/pemesanan/{id}',[PemesananController::class,'delete'])->name('pemesanan.delete');
     Route::get('/detailcetakfoto',[DetailcetakfotoController::class,'index'])->name('detailcetakfoto.admin');
-    Route::post('/detailcetakfoto/{id}/update',[DetailcetakfotoController::class,'update']);
-    Route::get('/detailcetakfoto/{id}/delete',[DetailcetakfotoController::class,'destroy']);
+    Route::post('/detailcetakfoto/{id}/update',[DetailcetakfotoController::class,'update'])->name('detailcetakfoto.admin.update');
+    Route::delete('/detailcetakfoto/delete/{id}',[DetailcetakfotoController::class,'admindestroy'])->name('detailcetakfoto.admin.destroy');
     Route::get('/laporan',[LaporanController::class,'index']);
     Route::get('/laporan/{id}/delete',[LaporanController::class,'destroy']);
+    Route::get('laporan-view',[LaporanController::class,'getPreviewPDF']);
+    Route::get('laporan/{pelanggan_id}/preview',[LaporanController::class,'getPreviewPDF']);
+    Route::get('laporan/{pelanggan_id}/dari-tanggal/{dari_tanggal}/sampai-tanggal/{sampai_tanggal}',
+        [LaporanController::class,'getReportByPelangganIDWithDateRange']);
+
+    Route::get('laporan/{pelanggan_id}',[LaporanController::class,'getReportByPelangganID']);
+
+    Route::get('laporan/per-periode',[LaporanController::class,'getViewFilter'])->name('laporan.filter-periode');
+
+    Route::post('laporan/per-periode',
+        [LaporanController::class,'getReportByDateRange'])->name('laporan.filter-date');
+
  
 });
  
@@ -82,6 +94,7 @@ Route::prefix('user')->middleware('auth', 'role:user')->group(function () {
 
     Route::get('/cart',[CartController::class,'index'])->name('cart.user');
     Route::get('/cart/lanjutkanpemesanan',[CartController::class,'lanjutkanPemesanan'])->name('cart.lanjutkanPemesanan');
+    
     Route::post('/cart/lanjutpemesanan',[CartController::class,'lanjutpemesanan'])->name('lanjutpemesanan.user');
     Route::post('/cart/addto',[CartController::class,'addToCart'])->name('cart.addToCart');
     Route::get('/cart/delete/{id}',[CartController::class,'deleteCart'])->name('cart.deleteCart');
@@ -94,9 +107,10 @@ Route::prefix('user')->middleware('auth', 'role:user')->group(function () {
     Route::post('/pemesanan/cart/{id}',[PemesananController::class,'simpanCart'])->name('pemesanan.simpanCart');
     Route::get('/detailcetakfoto',[DetailcetakfotoController::class,'index'])->name('detailcetakfoto.admin');
     Route::get('/detailcetakfoto/{id}',[DetailcetakfotoController::class,'pesan']);
-    Route::get('/detailcetakfoto/{id}/delete',[DetailcetakfotoController::class,'destroy']);
+    Route::delete('/detailcetakfoto/delete/{id}',[DetailcetakfotoController::class,'destroy'])->name('detailcetakfoto.destroy');
     Route::post('/detailcetakfoto/{id}/simpan',[DetailcetakfotoController::class,'simpan'])->name('detailcetakfoto.simpan');
     Route::get('/galerifoto',[GalerifotoController::class,'index'])->name('galerifoto.user');
     Route::get('/laporan',[LaporanController::class,'index']);
+    Route::get('laporan-view',[LaporanController::class,'getPreviewPDF']);
     Route::get('/detail', 'App\Http\Controllers\GalerifotoController@index')->name('detail');
 });
